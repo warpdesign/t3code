@@ -314,7 +314,9 @@ export function shouldPreserveAssistantLineBreaks(text: string): boolean {
 
 export function resolveTimelineMinimapHeightStyle(itemCount: number): string {
   const naturalHeight = Math.max(1, (itemCount - 1) * TIMELINE_MINIMAP_ITEM_SPACING);
-  return `min(${naturalHeight}px, ${TIMELINE_MINIMAP_MAX_HEIGHT_CSS})`;
+  // The viewport cap ignores a bottom terminal drawer shrinking the timeline, so
+  // also fit the timeline itself, leaving room for the prev/next buttons.
+  return `min(${naturalHeight}px, ${TIMELINE_MINIMAP_MAX_HEIGHT_CSS}, calc(100% - 3rem))`;
 }
 
 export function resolveTimelineMinimapTopPercent(index: number, itemCount: number): number {
